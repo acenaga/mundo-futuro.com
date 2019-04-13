@@ -1,0 +1,9 @@
+body{
+    background-color: white;
+}
+
+/*Nav Styles*/
+.logo-nav{
+    float:left;
+    max-width:15%;
+}
