@@ -222,9 +222,8 @@
             </header>
 
             <!-- Page Content -->
-            <main>
-                <slot></slot>
-            </main>
+            <slot></slot>
+
         </div>
     </div>
 </template>

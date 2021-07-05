@@ -22,6 +22,9 @@
 
 	<!-- Main Stylesheets -->
 	<link rel="stylesheet" href="{{ asset('/front-assets/css/style.css') }}"/>
+	<!-- Scripts -->
+	@routes
+	<script src="{{ mix('js/app.js') }}" defer></script>
 
 
 	<!--[if lt IE 9]>
@@ -57,11 +60,9 @@
 				<li><a href="">Contact</a></li>
 			</ul>
 			<div class="footer-social d-flex justify-content-center">
-				<a href="#"><i class="fa fa-pinterest"></i></a>
-				<a href="#"><i class="fa fa-facebook"></i></a>
-				<a href="#"><i class="fa fa-twitter"></i></a>
-				<a href="#"><i class="fa fa-dribbble"></i></a>
-				<a href="#"><i class="fa fa-behance"></i></a>
+				<a href="https://www.instagram.com/mundofuturoca/" target="__blank"><i class="fa fa-instagram"></i></a>
+				<a href="https://www.facebook.com/mundofuturoca" target="__blank"><i class="fa fa-facebook"></i></a>
+				<a href="https://twitter.com/mundofuturoca" target="__blank"><i class="fa fa-twitter"></i></a>
 			</div>
 			<div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
 		</div>
@@ -69,13 +70,14 @@
 	<!-- Footer section end -->
 
 	<!--====== Javascripts & Jquery ======-->
-	<script src="{{ asset('/front-assets/js/jquery-3.2.1.min.js') }}"></script>
-	<script src="{{ asset('/front-assets/js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('/front-assets/js/jquery.slicknav.min.js') }}"></script>
-	<script src="{{ asset('/front-assets/js/owl.carousel.min.js') }}"></script>
-	<script src="{{ asset('/front-assets/js/jquery.sticky-sidebar.min.js') }}"></script>
-	<script src="{{ asset('/front-assets/js/jquery.magnific-popup.min.js') }}"></script>
-	<script src="{{ asset('/front-assets/js/main.js') }}"></script>
+<script src="{{ asset('/front-assets/js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset('/front-assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('/front-assets/js/jquery.slicknav.min.js') }}"></script>
+<script src="{{ asset('/front-assets/js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('/front-assets/js/jquery.sticky-sidebar.min.js') }}"></script>
+<script src="{{ asset('/front-assets/js/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ asset('/front-assets/js/main.js') }}"></script>
 
-	</body>
+
+</body>
 </html>

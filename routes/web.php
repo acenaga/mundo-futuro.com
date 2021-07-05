@@ -17,7 +17,7 @@ use Inertia\Inertia;
 
 Route::get('/', function() {
 
-    return Inertia::render('home');
+    return Inertia::render('Front/Home');
 
 });
 
