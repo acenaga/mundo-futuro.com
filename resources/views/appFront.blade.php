@@ -3,8 +3,8 @@
 <head>
 	<title>Mundo Futuro - Noticias Geek, desarrollo y Juegos</title>
 	<meta charset="UTF-8">
-	<meta name="description" content="EndGam Gaming Magazine Template">
-	<meta name="keywords" content="endGam,gGaming, magazine, html">
+	<meta name="description" content="Pagina de Desarrollo web, tecnologia, gamer geek y recursos web">
+	<meta name="keywords" content="gamer geek desarrollo">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->
 	<link href="{{ asset('/front-assets/img/favicon.ico') }}" rel="shortcut icon"/>
