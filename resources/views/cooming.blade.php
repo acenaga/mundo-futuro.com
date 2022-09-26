@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.front')
+
+@section('navigation')
+    <livewire:navigation-front />
+@endsection
 
 @section('content')
     <section class="comming-soon container-fluid">
