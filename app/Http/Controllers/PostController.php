@@ -8,6 +8,32 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show_front($slug)
+    {
+        $post = Post::where('slug', $slug)->with('user', 'category', 'comments')->first();
+        //dd($post);
+        return view('posts.show', compact('post'));
+    }
+
+    /**
+     * Display a listing of the resource to the front.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index_front()
+    {
+        $posts = Post::with('user', 'category', 'comments')->get();
+        //dd($posts);
+        return view('posts.posts', compact('posts'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +41,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+        return view('posts.index', compact('posts'));
     }
 
     /**
