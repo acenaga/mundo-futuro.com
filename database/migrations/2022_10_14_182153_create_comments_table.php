@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-
-
             $table->text('content');
+            $table->bigInteger('parent_id')->unsigned()->nullable();
 
+            $table->foreign('parent_id')->references('id')->on('comments');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('post_id')->constrained()->cascadeOnDelete();
 
