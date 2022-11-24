@@ -18,10 +18,11 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('slug');
-            $table->string('description');
+            $table->text('description');
             $table->string('featured_image');
             $table->string('video');
             $table->string('requirements');
+            $table->boolean('free')->nullable();
             $table->string('price')->nullable();
             $table->string('discount')->nullable();
             $table->string('discount_price')->nullable();

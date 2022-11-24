@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Conner\Tagging\Taggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     use HasFactory;
+    use Taggable;
 
     public function user()
     {
