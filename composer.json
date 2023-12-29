@@ -11,7 +11,7 @@
         "laravel/sanctum": "^3.3.3",
         "laravel/socialite": "^5.11.0",
         "laravel/tinker": "^2.8.2",
-        "livewire/livewire": "^2.12.6",
+        "livewire/livewire": "^3.0",
         "rtconner/laravel-tagging": "^4.1.4",
         "spatie/laravel-permission": "^6.3"
     },

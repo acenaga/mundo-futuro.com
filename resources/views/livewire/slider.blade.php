@@ -1,5 +1,4 @@
 <div id="carouselPosts" class="carousel slide" data-bs-ride="carousel">
-
     <div class="carousel-indicators">
         @forelse ($posts as $post)
             <button type="button" data-bs-target="#carouselPosts" data-bs-slide-to="{{ $loop->index }}" class="active"

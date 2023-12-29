@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 
@@ -8,6 +8,6 @@ class CoomingSoon extends Component
 {
     public function render()
     {
-        return view('livewire.cooming-soon');
+        return view('livewire.Cooming-soon');
     }
 }
