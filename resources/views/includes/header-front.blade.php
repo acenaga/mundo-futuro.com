@@ -1,20 +1,23 @@
-<div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg  bg-light sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" id="logo" href="#">
+            <a class="navbar-brand" id="logo" href="{{ route('/') }}">
                 <img src="{{ asset('assets/img/square-logo.svg') }}" alt="Mundo Futuro">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMundoFuturo"
+                aria-controls="navbarMundoFuturo" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <div class="collapse navbar-collapse" id="navbarMundoFuturo">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Educacion</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Recursos</a>
+                    </li>
+                    <li>
+                        cualquier verga
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Tutoriales</a>

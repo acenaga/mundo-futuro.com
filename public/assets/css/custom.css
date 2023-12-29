@@ -1,9 +1,10 @@
-#logo{
-    width:75px;
+body{
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
 
-.algo{
-    font-size: 10rem;
+#logo{
+    width:75px;
 }
 .comming-soon{
     height: calc(100vh - 20vh);

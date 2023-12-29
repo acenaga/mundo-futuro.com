@@ -1,9 +1,5 @@
 @extends('layouts.front')
 
-@section('navigation')
-    <livewire:navigation-front />
-@endsection
-
 @section('content')
     <section id="posts" class="container">
         <div class="row">
