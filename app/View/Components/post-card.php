@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class post-card extends Component
+class postCard extends Component
 {
     /**
      * Create a new component instance.

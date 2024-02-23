@@ -8,6 +8,6 @@ class CoomingSoon extends Component
 {
     public function render()
     {
-        return view('livewire.Cooming-soon');
+        return view('livewire.cooming-soon');
     }
 }
