@@ -16,9 +16,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Recursos</a>
                     </li>
-                    <li>
-                        cualquier verga
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Tutoriales</a>
                     </li>
