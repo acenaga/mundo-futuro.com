@@ -1,65 +1,72 @@
-body{
+:root {
+    --primary-blue: #1D4975;
+    --primary-green: #71BFBA;
+    --primary-brown: #3C3541;
+    --primary-red: #D31E5C;
+}
+a, button {
+    cursor: url('../img/cursor-pointer.svg'), pointer;
+}
+
+.text-primary-blue {
+    color: var(--primary-blue);
+}
+.text-primary-green {
+    color: var(--primary-green);
+}
+.text-primary-brown {
+    color: var(--primary-brown);
+}
+.text-primary-red {
+    color: var(--primary-red);
+}
+.bg-primary-blue {
+    background-color: var(--primary-blue);
+}
+.bg-primary-green {
+    background-color: var(--primary-green);
+}
+.bg-primary-brown {
+    background-color: var(--primary-brown);
+}
+.bg-primary-red {
+    background-color: var(--primary-red);
+}
+
+
+
+
+body {
     font-family: 'Montserrat', sans-serif;
     font-family: 'Nunito', sans-serif;
 }
 
-#logo{
-    width:75px;
+#logo {
+    width: 75px;
 }
-.comming-soon{
+
+.comming-soon {
     height: calc(100vh - 20vh);
     position: relative;
 }
 
-.comming-soon img{
+.comming-soon img {
     width: 80%;
 }
 
-.post-img-hero{
+.post-img-hero {
     width: 100%;
     height: 350px;
     object-fit: cover;
     object-position: center;
 }
 
-
-
-
-.rocket{
-    width:50px;
-    height: 50px;
-    position: absolute;
-    bottom:0;
-    left: 0;
-    background-image: url('../img/rocket.svg');
-    animation-name: rocket;
-	animation-duration: 10s;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
+#footer-front {
+    background-color: #C7E6E4;
+    padding: 20px 0;
+    border-top: 1px solid #e9ecef;
 }
 
-
-
-@keyframes rocket {
-
-	0% {
-            transform: translate(0,0);
-    }
-    /* 5% {
-            transform: translate(0,0);
-            transform: rotate(90deg);
-    } */
-    25% {
-            transform: translate(calc(100vw - 10vw), 0);
-    }
-    50% {
-            transform: translate(calc(100vw - 10vw), calc(-100vh + 20vh));
-    }
-    75% {
-            transform: translate(0, calc(-100vh + 20vh));
-    }
-    100% {
-            transform: translate(0,0);
-    }
-
+#footer-front .logo-footer {
+    height: 70px;
 }

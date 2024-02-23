@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('cooming');
+    return view('home');
 })->name('/');
 
 Route::get('posts', 'App\Http\Controllers\PostController@index_front')->name('posts');
