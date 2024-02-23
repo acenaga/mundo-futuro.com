@@ -11,7 +11,7 @@ class Slider extends Component
     {
         $posts = Post::where('published', false)->take(5)->get();
 
-        return view('livewire.Slider', [
+        return view('livewire.slider', [
             'posts' => $posts,
         ]);
     }
