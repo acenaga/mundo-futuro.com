@@ -1,8 +1,5 @@
 @extends('layouts.front')
 
-@section('navigation')
-    <livewire:navigation-front />
-@endsection
 
 @section('content')
     <section class="container-fluid px-0">
