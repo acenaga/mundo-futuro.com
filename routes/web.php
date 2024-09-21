@@ -18,11 +18,14 @@ Route::get('/', function () {
 })->name('/');
 
 Route::get('posts', 'App\Http\Controllers\PostController@index_front')->name('posts');
+Route::get('posts/{slug}', 'App\Http\Controllers\PostController@show_front')->name('posts.details');
 
-
-
-Route::get('posts/{slug}', 'App\Http\Controllers\PostController@show_front')->name('posts.show');
-
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    Route::resource('dashboard/posts', 'App\Http\Controllers\PostController');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

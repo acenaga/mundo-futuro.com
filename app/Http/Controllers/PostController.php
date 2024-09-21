@@ -30,7 +30,6 @@ class PostController extends Controller
     public function index_front()
     {
         $posts = Post::with('user', 'category', 'comments')->get();
-        //dd($posts);
         return view('posts.posts', compact('posts'));
     }
 
@@ -42,7 +41,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return view('posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
