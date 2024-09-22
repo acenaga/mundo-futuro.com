@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
     Route::resource('dashboard/posts', 'App\Http\Controllers\PostController');
+
+    Route::post('dashboard/posts/upload', 'App\Http\Controllers\PostController@upload')->name('dashboard.trix.upload');
 });
 
 Route::get('/dashboard', function () {

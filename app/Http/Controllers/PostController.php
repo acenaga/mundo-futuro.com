@@ -68,12 +68,10 @@ class PostController extends Controller
         $this->validate($request, [
             'title_name' => 'required',
             'content' => 'required',
-            'tags' => 'required',
         ]);
         $input = $request->all();
         $tags = explode(",", $request->tags);
         $post = Post::create($input);
-        $post->tag($tags);
         return back()->with('success', 'Post added to database.');
     }
 
@@ -121,4 +119,5 @@ class PostController extends Controller
     {
         //
     }
+
 }

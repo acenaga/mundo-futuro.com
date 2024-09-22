@@ -16,6 +16,7 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^43.1.0",
         "amqplib": "^0.10.4",
         "tailwind": "^4.0.0"
     }
