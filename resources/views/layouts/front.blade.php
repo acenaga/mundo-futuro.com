@@ -40,6 +40,8 @@
 
         gtag('config', 'G-1HTHPRCFMN');
     </script>
+@else
+    <meta name="robots" content="noindex">
 @endif
 
 <body>
