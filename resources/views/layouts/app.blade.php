@@ -31,7 +31,13 @@
                 {{ $header }}
             </div>
         </header>
-
+        @if (session()->has('sucess'))
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-green-600 text-lime-100">
+                {!! session()->get('sucess') !!}
+            </div>
+        </div>
+        @endif
         <!-- Page Content -->
         <main>
             {{ $slot }}

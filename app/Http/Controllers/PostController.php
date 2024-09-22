@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\JsonResponse;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -65,13 +65,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title_name' => 'required',
-            'content' => 'required',
-        ]);
+        // $this->validate($request, [
+        //     'title' => 'required',
+        //     'content' => 'required',
+        //     'category_id' => 'required',
+        //     'excerpt' => 'required',
+        //     'featured_image' => 'image | mimes:jpeg,png,jpg,gif | max:2048'
+        // ]);
+
+
         $input = $request->all();
-        $tags = explode(",", $request->tags);
+        $input['user_id'] = auth()->user()->id;
         $post = Post::create($input);
+
+        if ($request->file('featured_image')) {
+            $post->featured_image = $request->file('featured_file')->store('posts', 'public');
+            $post->save();
+        }
         return back()->with('success', 'Post added to database.');
     }
 
@@ -119,5 +129,4 @@ class PostController extends Controller
     {
         //
     }
-
 }

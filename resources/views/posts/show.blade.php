@@ -10,8 +10,8 @@
             <div class="col-12 d-flex justify-content-center align-items-center">
                 <h1 class="my-4">{{ $post->title }}</h1>
             </div>
-            <div class="col-12 d-flex justify-content-center align-items-center">
-                <p>{{ $post->content }}</p>
+            <div class="col-12">
+                {!! $post->content !!}
             </div>
             <div>
                 <h5>Comentarios</h5>
