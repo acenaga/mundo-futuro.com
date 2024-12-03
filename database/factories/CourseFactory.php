@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -30,7 +32,7 @@ class CourseFactory extends Factory
             'discount_price' => rand(250, 5000),
             'slug' => fake()->slug(),
             'duration' => rand(30, 560),
-            'level' => 'beginner'
+            'level' => 'beginner',
         ];
     }
 }

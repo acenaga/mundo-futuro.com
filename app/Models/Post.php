@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
+
 use Cviebrock\EloquentSluggable\Sluggable;
-use Spatie\Tags\HasTags;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Tags\HasTags;
 
 class Post extends Model
 {
@@ -20,7 +23,7 @@ class Post extends Model
         'published',
         'user_id',
         'category_id',
-        'published'
+        'published',
     ];
 
     public function user()
@@ -37,12 +40,13 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'title'
-            ]
+                'source' => 'title',
+            ],
         ];
     }
 }

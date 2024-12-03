@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -9,9 +11,7 @@ use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Post;
 use App\Models\User;
-
 use Illuminate\Database\Seeder;
-use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 class DatabaseSeeder extends Seeder
 {

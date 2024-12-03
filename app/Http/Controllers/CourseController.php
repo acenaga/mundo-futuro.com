@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Course;
@@ -16,6 +18,7 @@ class CourseController extends Controller
     public function show_front($slug)
     {
         $course = course::where('slug', $slug)->with('user', 'category', 'comments')->first();
+
         //dd($course);
         return view('courses.show', compact('course'));
     }
@@ -28,6 +31,7 @@ class CourseController extends Controller
     public function index_front()
     {
         $courses = course::with('user', 'category', 'comments')->get();
+
         //dd($courses);
         return view('courses.courses', compact('courses'));
     }
@@ -40,6 +44,7 @@ class CourseController extends Controller
     public function index()
     {
         $posts = Post::all();
+
         return view('posts.index', compact('posts'));
     }
 
@@ -56,7 +61,6 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -67,9 +71,10 @@ class CourseController extends Controller
             'tags' => 'required',
         ]);
         $input = $request->all();
-        $tags = explode(",", $request->tags);
+        $tags = explode(',', $request->tags);
         $post = Post::create($input);
         $post->tag($tags);
+
         return back()->with('success', 'Post added to database.');
     }
 
@@ -98,7 +103,6 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

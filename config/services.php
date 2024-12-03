@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -38,13 +40,13 @@ return [
     'facebook' => [
         'client_id' => env('FACEBOOK_KEY'),
         'client_secret' => env('FACEBOOK_SECRET'),
-        'redirect' => '/login/facebook/callback'
+        'redirect' => '/login/facebook/callback',
     ],
 
     'twitter' => [
         'client_id' => env('TWITTER_KEY'),
         'client_secret' => env('TWITTER_SECRET'),
-        'redirect' => '/login/twitter/callback'
-    ]
+        'redirect' => '/login/twitter/callback',
+    ],
 
 ];

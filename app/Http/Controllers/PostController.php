@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
-use Illuminate\Http\JsonResponse;
-use App\Models\Post;
+
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-
     /**
      * Display the specified resource.
      *
@@ -18,6 +19,7 @@ class PostController extends Controller
     public function show_front($slug)
     {
         $post = Post::where('slug', $slug)->with('user', 'category', 'comments')->first();
+
         //dd($post);
         return view('posts.show', compact('post'));
     }
@@ -30,6 +32,7 @@ class PostController extends Controller
     public function index_front()
     {
         $posts = Post::with('user', 'category', 'comments')->get();
+
         return view('posts.posts', compact('posts'));
     }
 
@@ -41,6 +44,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
+
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -52,15 +56,15 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.posts.create',[
-            'categories' => $categories
+
+        return view('admin.posts.create', [
+            'categories' => $categories,
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -73,7 +77,6 @@ class PostController extends Controller
         //     'featured_image' => 'image | mimes:jpeg,png,jpg,gif | max:2048'
         // ]);
 
-
         $input = $request->all();
         $input['user_id'] = auth()->user()->id;
         $post = Post::create($input);
@@ -82,6 +85,7 @@ class PostController extends Controller
             $post->featured_image = $request->file('featured_file')->store('posts', 'public');
             $post->save();
         }
+
         return back()->with('success', 'Post added to database.');
     }
 
@@ -110,7 +114,6 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire;
 
 use App\Models\Newsletter;
 use Illuminate\Support\Facades\Http;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class FormNewsletter extends Component
@@ -14,9 +15,9 @@ class FormNewsletter extends Component
 
     public function updatedCaptcha($token)
     {
-        $response = Http::post('https://www.google.com/recaptcha/api/siteverify?secret=' . env('GOOGLE_RECAPTCHA_SECRET_KEY') . '&response=' . $token);
+        $response = Http::post('https://www.google.com/recaptcha/api/siteverify?secret='.env('GOOGLE_RECAPTCHA_SECRET_KEY').'&response='.$token);
         $this->captcha = $response->json()['score'];
-        if (!$this->captcha > .3) {
+        if (! $this->captcha > .3) {
             $this->subscribe();
         } else {
             return session()->flash('success', 'Google thinks you are a bot, please refresh and try again');
@@ -30,6 +31,7 @@ class FormNewsletter extends Component
         $this->reset();
         session()->flash('status', '¡Gracias por unirte a la familia de Mundo Futuro!');
     }
+
     public function render()
     {
         return view('livewire.form-newsletter');
