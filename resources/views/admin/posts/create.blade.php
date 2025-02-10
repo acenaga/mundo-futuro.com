@@ -16,9 +16,9 @@
                     <div class="flex justify-between">
                         <h1 class="text-2xl font-bold text-gray-600">Crear Nuevo Post</h1>
                     </div>
-                    <form action="{{ route('posts.store') }}" method="POST">
+                    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                        <div class="grid grid-cols-1 gap-6 mt-4">
                             <div>
                                 <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
                                 <input type="text" name="title" id="title" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value="{{ old('title') }}">
@@ -28,17 +28,8 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div>
-                                <label for="slug" class="block text-sm font-medium text-gray-700">Slug</label>
-                                <input type="text" name="slug" id="slug" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value="{{ old('slug') }}">
-                                @error('slug')
-                                    <div class="text-red-700 p-3 mt-4">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
                         </div>
-                        <div class="grid grid-cols-1 gap-6 mt-4">
+                        <div class="grid grid-cols-1 gap-6 mt-4 min-h-screen">
                             <div>
                                 <label for="content" class="block text-sm font-medium text-gray-700">Contenido</label>
                                 <textarea name="content" id="content" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">{{ old('content') }}</textarea>
@@ -62,6 +53,11 @@
                             <div>
                                 <label for="featured_image" class="block text-sm font-medium text-gray-700 mt-4">Imagen Principal</label>
                                 <input type="file" name="featured_image" id="featured_image" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                @error('featured_image')
+                                    <div class="text-red-700 p-3 mt-4">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-3">
@@ -102,8 +98,5 @@
             </div>
         </div>
     </div>
-    <script>
-
-
-    </script>
+    <x-forms.tinymce-config />
 </x-app-layout>

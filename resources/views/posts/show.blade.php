@@ -3,7 +3,10 @@
 
 @section('content')
     <section class="container-fluid px-0">
-        <img class="post-img-hero" src="{{ $post->featured_image }}" alt="{{ $post->title }}">
+        @if ($post->featured_image)
+            <img class="post-img-hero" src="{{ $post->get_image }}" alt="{{ $post->title }}">
+        @endif
+
     </section>
     <section id="posts" class="container">
         <div class="row">

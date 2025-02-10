@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -69,20 +70,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validate($request, [
-        //     'title' => 'required',
-        //     'content' => 'required',
-        //     'category_id' => 'required',
-        //     'excerpt' => 'required',
-        //     'featured_image' => 'image | mimes:jpeg,png,jpg,gif | max:2048'
-        // ]);
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required',
+            'category_id' => 'required',
+            'excerpt' => 'required',
+            'featured_image' => 'required | mimes:jpeg,png,jpg,gif | max:2048'
+        ]);
 
         $input = $request->all();
         $input['user_id'] = auth()->user()->id;
         $post = Post::create($input);
-
         if ($request->file('featured_image')) {
-            $post->featured_image = $request->file('featured_file')->store('posts', 'public');
+            $post->featured_image = $request->file('featured_image')->store('posts', 'public');
             $post->save();
         }
 
@@ -131,5 +131,23 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function uploads(Request $request)
+    {
+        // Validar que se haya enviado un archivo
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Ajusta las reglas de validación según tus necesidades
+        ]);
+        try {
+            $path = $request->file('file')->store('posts', 'public');
+            return response()->json([
+                'location' => Storage::url($path)
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error al subir el archivo'
+            ], 422);
+        }
     }
 }

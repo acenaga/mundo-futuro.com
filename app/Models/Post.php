@@ -49,4 +49,11 @@ class Post extends Model
             ],
         ];
     }
+
+    public function getGetimageAttribute($key)
+    {
+        if ($this->featured_image) {
+            return url("storage/$this->featured_image");
+        }
+    }
 }

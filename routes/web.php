@@ -27,11 +27,11 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
     Route::resource('dashboard/posts', 'App\Http\Controllers\PostController');
-    Route::post('dashboard/posts/uploads', 'App\Http\Controllers\PostController@uploads')->name('posts.uploads');
+    Route::post('dashboard/posts/uploads', [App\Http\Controllers\PostController::class, 'uploads'])->name('posts.uploads');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
