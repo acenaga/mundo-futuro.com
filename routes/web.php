@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
     Route::resource('dashboard/posts', App\Http\Controllers\PostController::class)->names('posts');
     Route::resource('dashboard/categories', App\Http\Controllers\CategoryController::class)->names('categories');
+    Route::resource('dashboard/tags', App\Http\Controllers\TagController::class)->names('tags');
     Route::post('dashboard/posts/uploads', [App\Http\Controllers\PostController::class, 'uploads'])->name('posts.uploads');
 });
 
