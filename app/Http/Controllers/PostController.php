@@ -146,7 +146,7 @@ class PostController extends Controller
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Error al subir el archivo'
+                'error' => 'Error al subir el archivo'. $e->getMessage()
             ], 422);
         }
     }

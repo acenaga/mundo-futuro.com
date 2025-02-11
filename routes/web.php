@@ -19,14 +19,15 @@ Route::get('/', function () {
     return view('home');
 })->name('/');
 
-Route::get('posts', 'App\Http\Controllers\PostController@index_front')->name('posts');
-Route::get('posts/{slug}', 'App\Http\Controllers\PostController@show_front')->name('posts.details');
+Route::get('posts', [App\Http\Controllers\PostController::class, 'index_front'])->name('posts');
+Route::get('posts/{slug}', [App\Http\Controllers\PostController::class, 'show_front'])->name('posts.details');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::resource('dashboard/posts', 'App\Http\Controllers\PostController');
+    Route::resource('dashboard/posts', App\Http\Controllers\PostController::class)->names('posts');
+    Route::resource('dashboard/categories', App\Http\Controllers\CategoryController::class)->names('categories');
     Route::post('dashboard/posts/uploads', [App\Http\Controllers\PostController::class, 'uploads'])->name('posts.uploads');
 });
 

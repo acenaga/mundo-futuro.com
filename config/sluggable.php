@@ -139,7 +139,7 @@ return [
      * is probably not a good idea from an SEO point of view.
      * Only set this to true if you understand the possible consequences.
      */
-    'onUpdate' => false,
+    'onUpdate' => true,
 
     /**
      * If the default slug engine of cocur/slugify is used, this array of
