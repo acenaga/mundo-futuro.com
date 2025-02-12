@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('dashboard/categories', App\Http\Controllers\CategoryController::class)->names('categories');
     Route::resource('dashboard/tags', App\Http\Controllers\TagController::class)->names('tags');
     Route::post('dashboard/posts/uploads', [App\Http\Controllers\PostController::class, 'uploads'])->name('posts.uploads');
+    ROute::post('/highlight-code', [App\Http\Controllers\PostController::class, 'highlight'])->name('highlight-code');
 });
 
 // Route::get('/dashboard', function () {

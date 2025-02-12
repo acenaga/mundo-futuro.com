@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Torchlight\Block;
+use Torchlight\Torchlight;
 
 class PostController extends Controller
 {
@@ -149,5 +151,20 @@ class PostController extends Controller
                 'error' => 'Error al subir el archivo'. $e->getMessage()
             ], 422);
         }
+    }
+
+    public function highlight(Request $request)
+    {
+        $code = $request->input('code');
+        $language = $request->input('language');
+
+        $block = new Block();
+        $block->code($code)->language($language);
+
+        $highlightedCode = Torchlight::highlight($block)->wrapped();
+
+        return response()->json([
+            'highlightedCode' => $highlightedCode
+        ]);
     }
 }

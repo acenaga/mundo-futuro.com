@@ -75,7 +75,7 @@
             'help'
         ],
         toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
-            'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+            'bullist numlist outdent indent | link image codehighlight | print preview media fullscreen | ' +
             'forecolor backcolor emoticons | help',
         menu: {
             favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
@@ -97,7 +97,32 @@
         convert_urls: true,
 
         // Configuración de caché para mejorar el rendimiento
-        cache_suffix: '?v=' + (new Date()).getTime()
+        cache_suffix: '?v=' + (new Date()).getTime(),
+
+        setup:function(editor) {
+            editor.ui.registry.addButton('codehighlight', {
+                text: 'Resaltar código',
+                onAction: function () {
+                    // Obtén el código seleccionado en el editor
+                    const selectedText = editor.selection.getContent({ format: 'text' });
+
+                    // Envía el código a tu backend para resaltarlo
+                    fetch('/highlight-code', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify({ code: selectedText, language: 'php' }) // Cambia el lenguaje según sea necesario
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Inserta el código resaltado en el editor
+                        editor.insertContent(data.highlightedCode);
+                    });
+                }
+            });
+            }
     });
     </script>
 </div>
