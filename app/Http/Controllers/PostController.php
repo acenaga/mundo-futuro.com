@@ -164,7 +164,7 @@ class PostController extends Controller
 
         $highlightedBlocks = Torchlight::highlight($block);
         $highlightedCode = $highlightedBlocks[0];
-        dd($highlightedCode);
+        dd($highlightedCode->wrapped);
 
         return response()->json([
             'highlightedCode' => $highlightedCode
