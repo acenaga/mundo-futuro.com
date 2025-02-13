@@ -19,7 +19,7 @@ class CourseController extends Controller
     {
         $course = course::where('slug', $slug)->with('user', 'category', 'comments')->first();
 
-        //dd($course);
+        // dd($course);
         return view('courses.show', compact('course'));
     }
 
@@ -32,7 +32,7 @@ class CourseController extends Controller
     {
         $courses = course::with('user', 'category', 'comments')->get();
 
-        //dd($courses);
+        // dd($courses);
         return view('courses.courses', compact('courses'));
     }
 

@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Http\Request;
+
 class CategoryController extends Controller
 {
     /**
@@ -12,6 +15,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
+
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -32,6 +36,7 @@ class CategoryController extends Controller
             'name' => 'required',
         ]);
         Category::create($request->all());
+
         return redirect()->route('categories.index');
 
     }
@@ -50,6 +55,7 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $category = Category::find($id);
+
         return view('admin.categories.edit', compact('category'));
     }
 
@@ -62,6 +68,7 @@ class CategoryController extends Controller
             'name' => 'required',
         ]);
         Category::find($id)->update($request->all());
+
         return redirect()->route('categories.index');
     }
 
@@ -74,6 +81,7 @@ class CategoryController extends Controller
             'confirm' => 'required',
         ]);
         Category::destroy($id);
+
         return redirect()->route('categories.index');
     }
 }

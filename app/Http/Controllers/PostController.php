@@ -8,8 +8,10 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 use Torchlight\Block;
 use Torchlight\Torchlight;
+use Spatie\Tags\Tag;
 
 class PostController extends Controller
 {
@@ -23,7 +25,7 @@ class PostController extends Controller
     {
         $post = Post::where('slug', $slug)->with('user', 'category', 'comments')->first();
 
-        //dd($post);
+
         return view('posts.show', compact('post'));
     }
 
@@ -34,7 +36,7 @@ class PostController extends Controller
      */
     public function index_front()
     {
-        $posts = Post::with('user', 'category', 'comments')->get();
+        $posts = Post::with('user', 'category', 'comments', 'tags')->get();
 
         return view('posts.posts', compact('posts'));
     }
@@ -48,7 +50,9 @@ class PostController extends Controller
     {
         $posts = Post::all();
 
-        return view('admin.posts.index', compact('posts'));
+        return view('admin.posts.index', [
+            'posts' => $posts,
+        ]);
     }
 
     /**
@@ -59,9 +63,11 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
         return view('admin.posts.create', [
             'categories' => $categories,
+            'tags' => $tags,
         ]);
     }
 
@@ -77,8 +83,10 @@ class PostController extends Controller
             'content' => 'required',
             'category_id' => 'required',
             'excerpt' => 'required',
-            'featured_image' => 'required | mimes:jpeg,png,jpg,gif | max:2048'
+            'featured_image' => 'required | mimes:jpeg,png,jpg,gif | max:2048',
         ]);
+
+
 
         $input = $request->all();
         $input['user_id'] = auth()->user()->id;
@@ -87,6 +95,8 @@ class PostController extends Controller
             $post->featured_image = $request->file('featured_image')->store('posts', 'public');
             $post->save();
         }
+
+        $post->attachTags($request->tags);
 
         return back()->with('success', 'Post added to database.');
     }
@@ -112,10 +122,12 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $categories = Category::all();
+        $tags = Tag::all();
 
         return view('admin.posts.edit', [
             'post' => $post,
             'categories' => $categories,
+            'tags' => $tags,
         ]);
     }
 
@@ -127,7 +139,28 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($id);
+        $oldImage = $post->featured_image;
+
+        $post->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'category_id' => $request->category_id,
+            'excerpt' => $request->excerpt,
+            'published' => $request->published,
+
+        ]);
+
+        if ($request->file('featured_image')) {
+            Storage::disk('public')->delete($oldImage);
+            $post->featured_image = $request->file('featured_image')->store('posts', 'public');
+            $post->save();
+        }
+
+        $post->syncTags($request->tags);
+
+        return back()->with('success', 'Post updated in database.');
+
     }
 
     /**
@@ -149,12 +182,13 @@ class PostController extends Controller
         ]);
         try {
             $path = $request->file('file')->store('posts', 'public');
+
             return response()->json([
-                'location' => Storage::url($path)
+                'location' => Storage::url($path),
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Error al subir el archivo'. $e->getMessage()
+                'error' => 'Error al subir el archivo'.$e->getMessage(),
             ], 422);
         }
     }
@@ -164,15 +198,14 @@ class PostController extends Controller
         $code = $request->input('code');
         $language = $request->input('language');
 
-        $block = new Block();
+        $block = new Block;
         $block->code($code)->language($language);
-
 
         $highlightedBlocks = Torchlight::highlight($block);
         $highlightedCode = $highlightedBlocks[0]->wrapped;
 
         return response()->json([
-            'highlightedCode' => $highlightedCode
+            'highlightedCode' => $highlightedCode,
         ]);
     }
 }

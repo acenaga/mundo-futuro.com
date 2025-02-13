@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -13,6 +15,7 @@ class TagController extends Controller
     public function index()
     {
         $tags = Tag::all();
+
         return view('admin.tags.index', compact('tags'));
     }
 
@@ -33,6 +36,7 @@ class TagController extends Controller
             'name' => 'required|string|max:255',
         ]);
         Tag::findOrCreate($request->name);
+
         return redirect()->route('tags.index');
     }
 
@@ -50,6 +54,7 @@ class TagController extends Controller
     public function edit(string $id)
     {
         $tag = Tag::find($id);
+
         return view('admin.tags.edit', compact('tag'));
     }
 
@@ -72,6 +77,7 @@ class TagController extends Controller
     public function destroy(string $id)
     {
         Tag::destroy($id);
+
         return redirect()->route('admin.tags.index');
     }
 }

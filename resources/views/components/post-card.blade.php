@@ -10,6 +10,12 @@
             <blockquote class="blockquote">
                 <p>{{ $post->user->username }}</p>
             </blockquote>
+            <p class="card-text"><small class="text-muted">{{ $post->published_at }}</small></p>
+            <div class="tags">
+                @foreach ($post->tags as $tag)
+                    <span class="tag">{{ $tag->name }}</span>
+                @endforeach
+            </div>
             <a href="{{ url('posts/' . $post->slug) }}" class="btn btn-primary">Mas Info...</a>
         </div>
     </div>

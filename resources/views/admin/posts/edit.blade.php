@@ -14,10 +14,11 @@
                         </div>
                     @endif
                     <div class="flex justify-between">
-                        <h1 class="text-2xl font-bold text-gray-600">Crear Nuevo Post</h1>
+                        <h1 class="text-2xl font-bold text-gray-600">Actualizar Post</h1>
                     </div>
                     <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="grid grid-cols-1 gap-6 mt-4">
                             <div>
                                 <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
@@ -64,6 +65,21 @@
                                     </div>
                                 @enderror
                             </div>
+                            <fieldset>
+                                <legend class="block text-sm font-medium text-gray-700"> Etiquetas </legend>
+                                @foreach ($tags as $tag)
+                                    <div class="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            name="tags[]"
+                                            id="tag-{{ $tag->id }}"
+                                            value="{{ $tag->id }}"
+                                            @checked(in_array($tag->id, old('tags', $post->tags->pluck('id')->toArray())))
+                                        >
+                                        <label for="tag-{{ $tag->id }}" class="ml-2 text-sm text-gray-700">{{ $tag->name }}</label>
+                                    </div>
+                                @endforeach
+                            </fieldset>
                             <div>
                                 @if ($post->featured_image)
                                     <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-64 h-64 object-cover">
@@ -95,13 +111,6 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
-                                <select name="tags" id="tags" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                    <option value="1">Laravel</option>
-                                    <option value="2">PHP</option>
-                                </select>
-                            </div>
-                            <div>
                                 <label for="published" class="block text-sm font-medium text-gray-700">Estado</label>
                                 <select name="published" id="published" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                                     <option
@@ -116,7 +125,7 @@
                             </div>
                         </div>
                         <div>
-                            <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crear Post</button>
+                            <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Actualizar Post</button>
                         </div>
                     </form>
 

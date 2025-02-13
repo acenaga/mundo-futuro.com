@@ -50,6 +50,20 @@
                                     </div>
                                 @enderror
                             </div>
+                            <fieldset class="mb-3">
+                                <legend class="block text-sm font-medium text-gray-700">Etiquetas</legend>
+                                @foreach ($tags as $tag)
+                                    <div class="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            name="tags[]"
+                                            id="tag-{{ $tag->id }}"
+                                            value="{{ $tag->id }}"
+                                            @checked(in_array($tag->id, old('tags', [])))>
+                                        <label for="tag-{{ $tag->id }}" class="ml-2 text-sm text-gray-700">{{ $tag->name }}</label>
+                                    </div>
+                                @endforeach
+                            </fieldset>
                             <div>
                                 <label for="featured_image" class="block text-sm font-medium text-gray-700 mt-4">Imagen Principal</label>
                                 <input type="file" name="featured_image" id="featured_image" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
@@ -76,13 +90,6 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>
-                            <div>
-                                <label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
-                                <select name="tags" id="tags" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                    <option value="1">Laravel</option>
-                                    <option value="2">PHP</option>
-                                </select>
                             </div>
                             <div>
                                 <label for="published" class="block text-sm font-medium text-gray-700">Estado</label>
