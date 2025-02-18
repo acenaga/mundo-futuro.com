@@ -87,8 +87,8 @@ class PostController extends Controller
         ]);
 
 
-
         $input = $request->all();
+
         $input['user_id'] = auth()->user()->id;
         $post = Post::create($input);
         if ($request->file('featured_image')) {
@@ -96,7 +96,9 @@ class PostController extends Controller
             $post->save();
         }
 
-        $post->attachTags($request->tags);
+        if ($request->tags) {
+            $post->attachTags($request->tags);
+        }
 
         return back()->with('success', 'Post added to database.');
     }
@@ -148,16 +150,22 @@ class PostController extends Controller
             'category_id' => $request->category_id,
             'excerpt' => $request->excerpt,
             'published' => $request->published,
-
         ]);
 
+        // Manejar cambio de imagen destacada
         if ($request->file('featured_image')) {
-            Storage::disk('public')->delete($oldImage);
+            if ($oldImage) {
+                Storage::disk('public')->delete($oldImage);
+            }
             $post->featured_image = $request->file('featured_image')->store('posts', 'public');
             $post->save();
         }
 
-        $post->syncTags($request->tags);
+        if ($request->tags) {
+            $post->syncTags($request->tags);
+        } else {
+            $post->tags()->detach();
+        }
 
         return back()->with('success', 'Post updated in database.');
 
@@ -171,7 +179,47 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        if ($post->featured_image) {
+            Storage::disk('public')->delete($post->featured_image);
+        }
+
+        // Extraer y eliminar imágenes del contenido
+        $content = $post->content;
+        $doc = new \DOMDocument();
+        libxml_use_internal_errors(true); // Habilitar el manejo interno de errores de libxml
+        $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+        libxml_clear_errors(); // Limpiar los errores después de la carga
+        $images = $doc->getElementsByTagName('img');
+        $imagesToDelete = [];
+
+        // Recopilar todas las rutas de imágenes
+        foreach ($images as $img) {
+            $src = $img->getAttribute('src');
+
+            // Verificar si la URL es absoluta y contiene '/storage/'
+            if (strpos($src, '/storage/') !== false) {
+                // Extraer la ruta relativa de la URL absoluta
+                $parsedUrl = parse_url($src);
+                $path = $parsedUrl['path']; // Obtener la ruta (por ejemplo, "/storage/images/example.jpg")
+
+                // Eliminar el prefijo '/storage/' para obtener la ruta en el disco
+                $path = str_replace('/storage/', '', $path);
+                // Agregar la ruta al array de imágenes a eliminar
+                $imagesToDelete[] = $path;
+            }
+        }
+
+        // Eliminar las imágenes
+        foreach ($imagesToDelete as $path) {
+            if (Storage::disk('public')->exists($path)) {
+                Storage::disk('public')->delete($path);
+            }
+        }
+
+        $post->delete();
+
+        return back()->with('success', 'Post deleted from database.');
     }
 
     public function uploads(Request $request)
@@ -207,5 +255,15 @@ class PostController extends Controller
         return response()->json([
             'highlightedCode' => $highlightedCode,
         ]);
+    }
+
+    public function deleteImage(Request $request)
+    {
+        $path = str_replace('/storage/', '', $request->path);
+        if (Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false, 'message' => 'Image not found'], 404);
     }
 }

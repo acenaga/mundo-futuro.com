@@ -78,6 +78,6 @@ class TagController extends Controller
     {
         Tag::destroy($id);
 
-        return redirect()->route('admin.tags.index');
+        return redirect()->route('tags.index');
     }
 }

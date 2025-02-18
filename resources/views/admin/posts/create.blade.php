@@ -58,8 +58,8 @@
                                             type="checkbox"
                                             name="tags[]"
                                             id="tag-{{ $tag->id }}"
-                                            value="{{ $tag->id }}"
-                                            @checked(in_array($tag->id, old('tags', [])))>
+                                            value="{{ $tag->name }}"
+                                            @checked(in_array($tag->name, old('tags', [])))>
                                         <label for="tag-{{ $tag->id }}" class="ml-2 text-sm text-gray-700">{{ $tag->name }}</label>
                                     </div>
                                 @endforeach
@@ -101,6 +101,7 @@
                         </div>
                         <div>
                             <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crear Post</button>
+                            <a href="{{ route('posts.index') }}" class="mt-4 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Cancelar</a>
                         </div>
                     </form>
 

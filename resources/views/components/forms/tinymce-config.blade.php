@@ -47,6 +47,31 @@
             });
         };
 
+        // Función para eliminar imagen del servidor
+        function deleteImageFromServer(src) {
+            if (!src || !src.startsWith('/storage/')) return;
+
+            fetch('/dashboard/posts/delete-image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({ path: src })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Imagen eliminada del servidor:', src);
+                } else {
+                    console.error('Error al eliminar imagen:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error de red al eliminar imagen:', error);
+            });
+        }
+
         // Configuración principal de TinyMCE
         tinymce.init({
             selector: 'textarea#content',
@@ -102,33 +127,47 @@
             // Configuración de caché para mejorar el rendimiento
             cache_suffix: '?v=' + (new Date()).getTime(),
 
-            // setup:function(editor) {
-            //     editor.ui.registry.addButton('codehighlight', {
-            //         text: 'Resaltar código',
-            //         icon: 'sourcecode',
-            //         onAction: function () {
-            //             // Obtén el código seleccionado en el editor
-            //             const selectedText = editor.selection.getContent({ format: 'text' });
-
-            //             // Envía el código a tu backend para resaltarlo
-            //             fetch('/highlight-code', {
-            //                 method: 'POST',
-            //                 headers: {
-            //                     'Content-Type': 'application/json',
-            //                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            //                 },
-            //                 body: JSON.stringify({ code: selectedText, language: 'php' }) // Cambia el lenguaje según sea necesario
-            //             })
-            //             .then(response => response.json())
-            //             .then(data => {
-            //                 // Inserta el código resaltado en el editor
-            //                 editor.insertContent(data.highlightedCode);
-            //             });
-            //         }
-            //     });
-            // }
-
             setup: function(editor) {
+                // Mantener un registro de las imágenes en el editor
+                let previousImageSrcs = [];
+
+                // Función para obtener todas las imágenes en el editor
+                function getEditorImageSrcs() {
+                    const images = editor.getBody().querySelectorAll('img');
+                    return Array.from(images).map(img => img.getAttribute('src')).filter(src => src);
+                }
+
+                // Inicialización - guardar las imágenes iniciales
+                editor.on('init', function() {
+                    setTimeout(function() {
+                        previousImageSrcs = getEditorImageSrcs();
+                    }, 500); // Dar un poco de tiempo para que se cargue todo
+                });
+
+                // Monitorear cambios significativos que podrían implicar eliminación de imágenes
+                editor.on('change undo redo NodeChange', function() {
+                    // Dejamos un pequeño retraso para asegurar que el DOM del editor esté actualizado
+                    setTimeout(function() {
+                        const currentImageSrcs = getEditorImageSrcs();
+
+                        // Encontrar imágenes que existían antes pero ya no están
+                        const deletedImages = previousImageSrcs.filter(src =>
+                            !currentImageSrcs.includes(src) && src.startsWith('/storage/')
+                        );
+
+                        // Eliminar cada imagen borrada
+                        if (deletedImages.length > 0) {
+                            deletedImages.forEach(src => {
+                                deleteImageFromServer(src);
+                            });
+                        }
+
+                        // Actualizar la lista de imágenes previas
+                        previousImageSrcs = currentImageSrcs;
+                    }, 100);
+                });
+
+                // Agregar botón para resaltar código
                 editor.ui.registry.addButton('codehighlight', {
                     text: 'Resaltar código',
                     onAction: function() {
@@ -203,7 +242,6 @@
                     }
                 });
             }
-
         });
     </script>
 </div>
