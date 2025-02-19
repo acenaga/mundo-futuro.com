@@ -52,7 +52,9 @@ return new class extends Migration
         });
 
         DB::table('roles')->insert([
+            ['name' => 'super-admin', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'admin', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'author', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'editor', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'professor', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'user', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
@@ -127,7 +129,7 @@ return new class extends Migration
             ->forget(config('permission.cache.key'));
 
         $user = \App\Models\User::find(1);
-        $user->assignRole('admin');
+        $user->assignRole('super-admin');
 
     }
 

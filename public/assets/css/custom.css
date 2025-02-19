@@ -70,3 +70,19 @@ body {
 #footer-front .logo-footer {
     height: 70px;
 }
+
+#carouselPosts {
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+}
+
+#carouselPosts .carousel-item {
+    background-color: #1c6ca1;
+    height: 350px;
+    width: 100%;
+}
+#carouselPosts .carousel-item img {
+    object-fit: cover;
+    object-position: center;
+}

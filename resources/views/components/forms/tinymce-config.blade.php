@@ -75,6 +75,7 @@
         // Configuración principal de TinyMCE
         tinymce.init({
             selector: 'textarea#content',
+            license: 'gpl',
             plugins: [
                 'code',
                 'table',

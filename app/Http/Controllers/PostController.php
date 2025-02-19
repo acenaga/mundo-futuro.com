@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\View;
 use Torchlight\Block;
 use Torchlight\Torchlight;
 use Spatie\Tags\Tag;
@@ -36,9 +35,11 @@ class PostController extends Controller
      */
     public function index_front()
     {
-        $posts = Post::with('user', 'category', 'comments', 'tags')->get();
+        $posts = Post::with('user', 'category', 'comments', 'tags')->paginate(5);
 
-        return view('posts.posts', compact('posts'));
+        return view('posts.posts', [
+            'posts' => $posts
+        ]);
     }
 
     /**
@@ -100,7 +101,11 @@ class PostController extends Controller
             $post->attachTags($request->tags);
         }
 
-        return back()->with('success', 'Post added to database.');
+        return redirect()
+            ->route('posts.index')
+            ->with('success', 'Post added to database.');
+
+
     }
 
     /**

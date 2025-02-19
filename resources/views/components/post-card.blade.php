@@ -16,7 +16,24 @@
                     <span class="tag">{{ $tag->name }}</span>
                 @endforeach
             </div>
+
             <a href="{{ url('posts/' . $post->slug) }}" class="btn btn-primary">Mas Info...</a>
+            <div class="card-footer">
+                <p>
+                    <small class="text-muted">Creado: {{ $post->created_at->format('d M Y')  }} - {{ $post->created_at->diffForHumans() }}</small>
+                </p>
+                @if($post->update_at)
+                    <p>
+                        <small class="text-muted">Last updated {{ $post->updated_at->diffForHumans() }}</small>
+                    </p>
+
+                @endif
+                <p>
+                    <small class="text-muted">Escrito por {{ $post->user->username }}</small>
+                </p>
+
+
+            </div>
         </div>
     </div>
 </div>
