@@ -4,9 +4,9 @@
     --primary-brown: #3C3541;
     --primary-red: #D31E5C;
 }
-a, button {
+/* a, button {
     cursor: url('../img/cursor-pointer.svg'), pointer;
-}
+} */
 
 .text-primary-blue {
     color: var(--primary-blue);
