@@ -9,15 +9,19 @@
 .text-primary-blue {
     color: var(--primary-blue);
 }
+
 .text-primary-green {
     color: var(--primary-green);
 }
+
 .text-primary-brown {
     color: var(--primary-brown);
 }
+
 .text-primary-red {
     color: var(--primary-red);
 }
+
 .bg-primary-blue {
     background-color: var(--primary-blue);
 }
@@ -80,6 +84,7 @@ body {
     height: 350px;
     width: 100%;
 }
+
 #carouselPosts .carousel-item img {
     object-fit: cover;
     object-position: center;
