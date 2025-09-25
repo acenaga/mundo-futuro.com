@@ -23,7 +23,6 @@ class Post extends Model
         'published',
         'user_id',
         'category_id',
-        'published',
     ];
 
     public function user()

@@ -1,9 +1,9 @@
 {
     "mcpServers": {
         "laravel-boost": {
-            "command": "/Users/acenaga/Library/Application Support/Herd/bin/php82",
+            "command": "C:\\Users\\amari\\.config\\herd\\bin\\php84\\php.exe",
             "args": [
-                "/Users/acenaga/Herd/mundo-futuro.com/artisan",
+                "C:\\laragon\\www\\mundo-futuro.com\\artisan",
                 "boost:mcp"
             ]
         },
